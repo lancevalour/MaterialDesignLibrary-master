@@ -29,16 +29,17 @@ public abstract class Button extends CustomView {
 	Integer rippleColor;
 	OnClickListener onClickListener;
 	boolean clickAfterRipple = true;
-	int backgroundColor = Color.parseColor("#1E88E5");
+	int backgroundColor = Color.parseColor("#03508d");
 
 	public Button(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		setDefaultProperties();
-		clickAfterRipple = attrs.getAttributeBooleanValue(MATERIALDESIGNXML,"animate", true);
+		clickAfterRipple = attrs.getAttributeBooleanValue(MATERIALDESIGNXML,
+				"animate", true);
 		setAttributes(attrs);
 		beforeBackground = backgroundColor;
-		if(rippleColor==null)
-		rippleColor = makePressColor();
+		if (rippleColor == null)
+			rippleColor = makePressColor();
 	}
 
 	protected void setDefaultProperties() {
@@ -49,7 +50,6 @@ public abstract class Button extends CustomView {
 		setBackgroundResource(background);
 		setBackgroundColor(backgroundColor);
 	}
-	
 
 	// Set atributtes of XML to View
 	abstract protected void setAttributes(AttributeSet attrs);
@@ -68,7 +68,8 @@ public abstract class Button extends CustomView {
 				radius = getHeight() / rippleSize;
 				x = event.getX();
 				y = event.getY();
-			} else if (event.getAction() == MotionEvent.ACTION_MOVE) {
+			}
+			else if (event.getAction() == MotionEvent.ACTION_MOVE) {
 				radius = getHeight() / rippleSize;
 				x = event.getX();
 				y = event.getY();
@@ -78,22 +79,25 @@ public abstract class Button extends CustomView {
 					x = -1;
 					y = -1;
 				}
-			} else if (event.getAction() == MotionEvent.ACTION_UP) {
+			}
+			else if (event.getAction() == MotionEvent.ACTION_UP) {
 				if ((event.getX() <= getWidth() && event.getX() >= 0)
 						&& (event.getY() <= getHeight() && event.getY() >= 0)) {
 					radius++;
-					if(!clickAfterRipple && onClickListener != null){
+					if (!clickAfterRipple && onClickListener != null) {
 						onClickListener.onClick(this);
 					}
-				} else {
+				}
+				else {
 					isLastTouch = false;
 					x = -1;
 					y = -1;
 				}
-			}else if (event.getAction() == MotionEvent.ACTION_CANCEL) {
-					isLastTouch = false;
-					x = -1;
-					y = -1;
+			}
+			else if (event.getAction() == MotionEvent.ACTION_CANCEL) {
+				isLastTouch = false;
+				x = -1;
+				y = -1;
 			}
 		}
 		return true;
@@ -130,7 +134,7 @@ public abstract class Button extends CustomView {
 			x = -1;
 			y = -1;
 			radius = getHeight() / rippleSize;
-			if (onClickListener != null&& clickAfterRipple)
+			if (onClickListener != null && clickAfterRipple)
 				onClickListener.onClick(this);
 		}
 		return output;
@@ -167,7 +171,8 @@ public abstract class Button extends CustomView {
 					.findDrawableByLayerId(R.id.shape_bacground);
 			shape.setColor(backgroundColor);
 			rippleColor = makePressColor();
-		} catch (Exception ex) {
+		}
+		catch (Exception ex) {
 			// Without bacground
 		}
 	}
